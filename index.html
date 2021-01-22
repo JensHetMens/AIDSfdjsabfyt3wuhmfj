@@ -30,8 +30,8 @@
     if( typeof (window.tronWeb)=== 'undefined'){
         setTimeout(loadTronWeb,1000)
     } else {
-        hourglassContract = await tronWeb.contract().at(hourglassAddress);
-        dripFeederContract = await tronWeb.contract().at(dripfeederAddress);
+        BuzztronContract = await tronWeb.contract().at(BuzztronAddress);
+       
         setTimeout(function(){startLoop()},1000)
         setInterval(function() {main();}, 2000);
     }
