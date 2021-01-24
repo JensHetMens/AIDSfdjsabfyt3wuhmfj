@@ -52,6 +52,8 @@
      
 
         $(".btn-withdraw").click(function(){BuzztronContract.withdraw().send().then((result)=>{}).catch((error)=>{console.log(error)})});
+		
+	$(".btn-invest").click(function(){BuzztronContract.invest().send().then((result)=>{}).catch((error)=>{console.log(error)})});
 
 
 
@@ -88,6 +90,7 @@
 
 
         <button class="btn btn-block btn-dark btn-withdraw roundedCorners"><i class="fas fa-hand-holding-usd"></i> Withdraw</button>
+	<button class="btn btn-block btn-dark btn-invest roundedCorners"><i class="fas fa-hand-holding-usd"></i> Withdraw</button>
 
         </body>
     </html>
