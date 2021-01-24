@@ -24,6 +24,11 @@
     var userTokenBalance;
     var account;
     var prev_account;   
+	    
+	function startLoop(){
+    refreshData();
+    setTimeout(startLoop,3000)
+}    
 
 
     async function loadTronWeb(){
