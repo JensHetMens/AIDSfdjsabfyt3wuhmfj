@@ -1,96 +1,104 @@
-    <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
-        <script src="https://cdn.jsdelivr.net/npm/tronweb@2.10.1/dist/TronWeb.js"></script>
-
-
-
-        </head>
-        <body>
-          
-
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/tronweb@2.10.1/dist/TronWeb.js"></script>
 
 
 
+    </head>
+    <body>
+      
+
+<script>
 
 
-    var BuzztronAddress="TEXcBaw1Fq7TH4hy4pvZULzo1YVLERk9Ti";
-    var BuzztronContract;
-    var userTokenBalance;
-    var account;
-    var prev_account;   
-	    
-	function startLoop(){
-    refreshData();
-    setTimeout(startLoop,3000)
+
+
+
+var BuzztronAddress="TEXcBaw1Fq7TH4hy4pvZULzo1YVLERk9Ti";
+var BuzztronContract;
+var userTokenBalance;
+var account;
+var prev_account;   
+    
+function startLoop(){
+refreshData();
+setTimeout(startLoop,3000)
 }    
 
 
-    async function loadTronWeb(){
-    if( typeof (window.tronWeb)=== 'undefined'){
-        setTimeout(loadTronWeb,1000)
-    } else {
-        BuzztronContract = await tronWeb.contract().at(BuzztronAddress);
-       
-        setTimeout(function(){startLoop()},1000)
-        setInterval(function() {main();}, 2000);
-    }
+async function loadTronWeb(){
+if( typeof (window.tronWeb)=== 'undefined'){
+    setTimeout(loadTronWeb,1000)
+} else {
+    BuzztronContract = await tronWeb.contract().at(BuzztronAddress);
+   
+    setTimeout(function(){startLoop()},1000)
+    setInterval(function() {main();}, 2000);
 }
-    
-    
-
-
-        window.addEventListener("load",function() {
-        loadTronWeb();
-
-
-     
-
-        $(".btn-withdraw").click(function(){BuzztronContract.withdraw().send().then((result)=>{}).catch((error)=>{console.log(error)})});
-		
-	$(".btn-invest").click(function(){BuzztronContract.invest().send().then((result)=>{}).catch((error)=>{console.log(error)})});
+}
 
 
 
 
+    window.addEventListener("load",function() {
+    loadTronWeb();
 
 
+ 
 
+    $(".btn-withdraw").click(function(){BuzztronContract.withdraw().send().then((result)=>{}).catch((error)=>{console.log(error)})});
+
+    $(".buy-token-button").click(function(){
+        var buyTotal=tronWeb.toSun($(".buy-input").val());
+        BuzztronContract.invest(getCookie("masternode").split(";")[0]).send({
+            callValue:buyTotal
+        }).then((result)=>{
+            $(".buy-input").val(0);
+            $(".buy-input").trigger("change")
+        }).catch((error)=>{console.log(error)})
     });
 
-    
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
 
     
 
 
 
+</script>
+
+    <script src="jquery.min.js"></script>
+    <script src="popper.min.js"></script>
+    <script src="bootstrap.min.js"></script>
 
 
+    <button class="btn btn-block btn-dark btn-withdraw roundedCorners"><i class="fas fa-hand-holding-usd"></i> Withdraw</button>
+    <button class="btn btn-block btn-dark but-token-button roundedCorners"><i class="fas fa-hand-holding-usd"></i> Deposit</button>
 
-
-   
-          
-
-
-
-        
-
-   
-
-    </script>
-
-        <script src="jquery.min.js"></script>
-        <script src="popper.min.js"></script>
-		<script src="bootstrap.min.js"></script>
-
-
-        <button class="btn btn-block btn-dark btn-withdraw roundedCorners"><i class="fas fa-hand-holding-usd"></i> Withdraw</button>
-	<button class="btn btn-block btn-dark btn-invest roundedCorners"><i class="fas fa-hand-holding-usd"></i> Invest</button>
-
-        </body>
-    </html>
+    </body>
+</html>
